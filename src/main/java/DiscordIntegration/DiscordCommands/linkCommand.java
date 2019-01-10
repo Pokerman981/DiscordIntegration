@@ -14,7 +14,6 @@ public class linkCommand extends Command {
 
     public linkCommand(){
         this.name = "link";
-        this.requiredRole = "donator";
     }
 
     @Override
