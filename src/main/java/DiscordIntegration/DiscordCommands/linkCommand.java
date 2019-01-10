@@ -7,6 +7,7 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.service.user.UserStorageService;
 
+import java.io.IOException;
 import java.util.Optional;
 
 public class linkCommand extends Command {
@@ -52,6 +53,7 @@ public class linkCommand extends Command {
                         return;
                     }
                     Main.config().getNode("linked-info", uuid, "linked").setValue(true);
+                    try {Main.getInstance().save();} catch (IOException e) {e.printStackTrace();}
                     event.getGuild().getController().addSingleRoleToMember(event.getMember(), event.getGuild().getRoleById("532776303280259089")).queue();
                     event.reply("You are now able to talk in the server chat");
 
