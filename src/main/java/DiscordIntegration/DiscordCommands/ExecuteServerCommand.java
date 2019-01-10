@@ -1,4 +1,4 @@
-package DiscordIntegration.Discord.Commands;
+package DiscordIntegration.DiscordCommands;
 
 import DiscordIntegration.Main;
 import com.jagrosh.jdautilities.command.Command;

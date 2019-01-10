@@ -1,6 +1,8 @@
 package DiscordIntegration;
 
-import DiscordIntegration.Discord.Commands.ExecuteServerCommand;
+import DiscordIntegration.DiscordCommands.ExecuteServerCommand;
+import DiscordIntegration.ServerCommands.linkCommand;
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
@@ -8,6 +10,8 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
+import org.spongepowered.api.Sponge;
+import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
@@ -31,9 +35,17 @@ public class Main {
     @Listener
     public void onInit(GameInitializationEvent event) {
         instance = this;
-        try {rootNode = loader.load();
-        genConfig();
-        populateVariables(); } catch (IOException e) {e.printStackTrace();}
+        try {
+            //
+            rootNode = loader.load();
+            genConfig();
+            populateVariables();
+            registerCommands();
+        } catch (IOException e) {
+            //
+            e.printStackTrace();
+        }
+
 
 
 
@@ -45,6 +57,8 @@ public class Main {
                 .setEmojis("\u2705", "\uD83D\uDCA1", "\uD83D\uDEAB") //Unicode emojis
                 .setOwnerId(Ref.ownerid)
                 .addCommands(
+                        new ExecuteServerCommand(),
+                        new DiscordIntegration.DiscordCommands.linkCommand()
                 );
         EventWaiter waiter = new EventWaiter();
 
@@ -63,6 +77,11 @@ public class Main {
 
     private void populateVariables(){
         token = rootNode.getNode("token").getString();
+    }
+
+    private void registerCommands() {
+        CommandSpec link = CommandSpec.builder().executor(new linkCommand()).build();
+        Sponge.getCommandManager().register(this, link, Lists.newArrayList("link"));
     }
 
 
