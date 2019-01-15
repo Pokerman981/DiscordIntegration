@@ -1,5 +1,6 @@
 package DiscordIntegration;
 
+import DiscordIntegration.DiscordCommands.CheckPinCommand;
 import DiscordIntegration.DiscordCommands.ExecuteServerCommand;
 import DiscordIntegration.ServerCommands.linkCommand;
 import com.google.common.collect.Lists;
@@ -58,7 +59,8 @@ public class Main {
                 .setOwnerId(Ref.ownerid)
                 .addCommands(
                         new ExecuteServerCommand(),
-                        new DiscordIntegration.DiscordCommands.linkCommand()
+                        new DiscordIntegration.DiscordCommands.linkCommand(),
+                        new CheckPinCommand()
                 );
         EventWaiter waiter = new EventWaiter();
 
