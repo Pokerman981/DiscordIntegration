@@ -1,5 +1,7 @@
 package DiscordIntegration;
 
+import DiscordIntegration.API.IDiscordService;
+import DiscordIntegration.API.Service;
 import DiscordIntegration.DiscordCommands.CheckPinCommand;
 import DiscordIntegration.DiscordCommands.ExecuteServerCommand;
 import DiscordIntegration.ServerCommands.linkCommand;
@@ -47,6 +49,8 @@ public class Main {
             e.printStackTrace();
         }
 
+        Sponge.getServiceManager().setProvider(instance, IDiscordService.class, new Service());
+
 
 
 
@@ -63,6 +67,8 @@ public class Main {
                         new CheckPinCommand()
                 );
         EventWaiter waiter = new EventWaiter();
+
+
 
         jda.addEventListener(waiter);
         jda.addEventListener(ccb.build());
@@ -85,6 +91,8 @@ public class Main {
         CommandSpec link = CommandSpec.builder().executor(new linkCommand()).build();
         Sponge.getCommandManager().register(this, link, Lists.newArrayList("link"));
     }
+
+
 
 
 
