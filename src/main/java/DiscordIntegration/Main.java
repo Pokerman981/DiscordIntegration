@@ -11,7 +11,9 @@ import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
+import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
+import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.spec.CommandSpec;
@@ -23,13 +25,13 @@ import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
 
 import javax.security.auth.login.LoginException;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Map;
 import java.util.logging.Logger;
 
-@Plugin(id = "discordintegration", name = "DiscordIntegration", version = "1.0", dependencies = {
-        @Dependency(id = "luckperms", optional = false)
-})
+@Plugin(id = "discordintegration", name = "DiscordIntegration", version = "1.0")
 public class Main {
 
     private static String token;
@@ -73,6 +75,8 @@ public class Main {
         jda.addEventListener(waiter);
         jda.addEventListener(ccb.build());
 
+        oneTime();
+
 
     }
 
@@ -90,6 +94,40 @@ public class Main {
     private void registerCommands() {
         CommandSpec link = CommandSpec.builder().executor(new linkCommand()).build();
         Sponge.getCommandManager().register(this, link, Lists.newArrayList("link"));
+    }
+
+    private void oneTime() { //Will be removing this
+        if (!rootNode.getNode("oneTime").isVirtual()) return;
+
+        try {
+            File file = new File(Main.getInstance().ConfigDir.toFile().getParentFile(), "discordrolesync/discordrolesync.conf");
+            ConfigurationLoader<CommentedConfigurationNode> Loader = HoconConfigurationLoader.builder().setFile(file).build();
+            CommentedConfigurationNode oldConfig = Loader.load();
+
+            String uuid = null;
+            String name = null;
+            String pin = null;
+
+            for (Map.Entry<Object, ? extends CommentedConfigurationNode> map : oldConfig.getNode("records").getChildrenMap().entrySet()) {
+                uuid = map.getKey().toString();
+                name = map.getValue().getNode("name").getString();
+                pin = map.getValue().getNode("pin").getString();
+
+                System.out.println(uuid);
+                System.out.println(name);
+                System.out.println(pin);
+                System.out.println("-----------");
+
+            }
+
+            rootNode.getNode("linked-info", uuid, "name").setValue(name);
+            rootNode.getNode("linked-info", uuid, "pin").setValue(pin);
+            rootNode.setValue("oneTime").setValue(true);
+
+            save();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
