@@ -26,17 +26,26 @@ public class linkCommand implements CommandExecutor {
         }
 
         Random random = new Random();
-        String pin = String.format("%06d", random.nextInt(100000));
+        String pin = String.format("%05d", random.nextInt(100000));
 
-        Utils.sendMessage(src, "&aTo finish linking your profile message the server chat bot and type and '!link (minecraft name) (pin)' in any channel on the poke-brawl discord");
+        Utils.sendMessage(src, "&aTo finish linking your profile message the server chat bot and type and '!link (minecraft name) (pin)'");
         Utils.sendMessage(src, "&aYour custom pin is " + pin + ". Write it down.");
 
         Main.config().getNode("linked-info", src.getIdentifier(), "pin").setValue(pin);
         Main.config().getNode("linked-info", src.getIdentifier(), "name").setValue(src.getName());
 
         try {Main.getInstance().save();} catch (IOException e) {e.printStackTrace();}
+        String server = Main.jda.getGuilds().get(0).getSelfMember().getNickname().toLowerCase();
+        switch (server) {
+            case "serverchat": {
+                Main.jda.getGuildById("291940579875618816").getTextChannelById("532785983960121354").sendMessage("Name: %player%\nPin: %pin%".replaceAll("%player%", src.getName()).replaceAll("%pin%", pin)).queue();
+            }
+            default: {
+                Main.jda.getGuildById("258797004757532672").getTextChannelById("322915404043517952").sendMessage("Name: %player%\nPin: %pin%".replaceAll("%player%", src.getName()).replaceAll("%pin%", pin)).queue();
 
-        Main.jda.getGuildById("291940579875618816").getTextChannelById("532785983960121354").sendMessage("Name: %player%\nPin: %pin%".replaceAll("%player%", src.getName()).replaceAll("%pin%", pin)).queue();
+            }
+        }
+
 
         return CommandResult.success();
     }

@@ -31,7 +31,7 @@ public class CheckPinCommand extends Command {
                 .execute(task -> {
                     Optional<UserStorageService> userStorage = Sponge.getServiceManager().provide(UserStorageService.class);
                     if (!userStorage.get().get(command[0]).isPresent()) {
-                        event.reply("This play does not exist!");
+                        event.reply("This player does not exist!");
                         return;
                     }
 

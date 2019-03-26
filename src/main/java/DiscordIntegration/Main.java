@@ -3,6 +3,7 @@ package DiscordIntegration;
 import DiscordIntegration.API.IDiscordService;
 import DiscordIntegration.API.Service;
 import DiscordIntegration.DiscordCommands.CheckPinCommand;
+import DiscordIntegration.DiscordCommands.EvalCommand;
 import DiscordIntegration.DiscordCommands.ExecuteServerCommand;
 import DiscordIntegration.ServerCommands.linkCommand;
 import com.google.common.collect.Lists;
@@ -13,22 +14,18 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
-import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
-import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
 
 import javax.security.auth.login.LoginException;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Map;
 import java.util.logging.Logger;
 
 @Plugin(id = "discordintegration", name = "DiscordIntegration", version = "1.0")
@@ -63,10 +60,12 @@ public class Main {
                 .setAlternativePrefix("..")
                 .setEmojis("\u2705", "\uD83D\uDCA1", "\uD83D\uDEAB") //Unicode emojis
                 .setOwnerId(Ref.ownerid)
+                .setCoOwnerIds("126427288496504834")
                 .addCommands(
                         new ExecuteServerCommand(),
                         new DiscordIntegration.DiscordCommands.linkCommand(),
-                        new CheckPinCommand()
+                        new CheckPinCommand(),
+                        new EvalCommand()
                 );
         EventWaiter waiter = new EventWaiter();
 
@@ -74,10 +73,6 @@ public class Main {
 
         jda.addEventListener(waiter);
         jda.addEventListener(ccb.build());
-
-        oneTime();
-
-
     }
 
     private void genConfig() throws IOException{
@@ -95,107 +90,6 @@ public class Main {
         CommandSpec link = CommandSpec.builder().executor(new linkCommand()).build();
         Sponge.getCommandManager().register(this, link, Lists.newArrayList("link"));
     }
-
-    private void oneTime() { //Will be removing this
-        if (!rootNode.getNode("oneTime").isVirtual()) return;
-
-        try {
-            File file = new File(Main.getInstance().ConfigDir.toFile().getParentFile(), "discordrolesync/discordrolesync.conf");
-            ConfigurationLoader<CommentedConfigurationNode> Loader = HoconConfigurationLoader.builder().setFile(file).build();
-            CommentedConfigurationNode oldConfig = Loader.load();
-
-            String uuid = null;
-            String name = null;
-            String pin = null;
-
-            for (Map.Entry<Object, ? extends CommentedConfigurationNode> map : oldConfig.getNode("records").getChildrenMap().entrySet()) {
-                uuid = map.getKey().toString();
-                name = map.getValue().getNode("name").getString();
-                pin = map.getValue().getNode("pin").getString();
-
-                System.out.println(uuid);
-                System.out.println(name);
-                System.out.println(pin);
-                System.out.println("-----------");
-
-            }
-
-            rootNode.getNode("linked-info", uuid, "name").setValue(name);
-            rootNode.getNode("linked-info", uuid, "pin").setValue(pin);
-            rootNode.setValue("oneTime").setValue(true);
-
-            save();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -220,9 +114,9 @@ public class Main {
         return this.plugin;
     }
 
-    public static CommentedConfigurationNode rootNode;
+    public static ConfigurationNode rootNode;
 
-    public static CommentedConfigurationNode config() {
+    public static ConfigurationNode config() {
         return rootNode;
     }
 

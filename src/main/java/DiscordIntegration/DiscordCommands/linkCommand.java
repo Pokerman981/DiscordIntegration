@@ -3,9 +3,12 @@ package DiscordIntegration.DiscordCommands;
 import DiscordIntegration.Main;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import net.dv8tion.jda.core.entities.Guild;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.service.user.UserStorageService;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.channel.MessageChannel;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -14,11 +17,23 @@ public class linkCommand extends Command {
 
     public linkCommand(){
         this.name = "link";
+        this.guildOnly = false;
     }
 
     @Override
     protected void execute(CommandEvent event) {
         String[] command = event.getArgs().split(" ");
+        String authorID = event.getAuthor().getId();
+
+        try {
+            String id = event.getGuild().getId();
+            if (!id.isEmpty()) {
+                return;
+            }
+        } catch (NullPointerException e) {
+            //Nothing
+        }
+
         if (command.length != 2) {
             event.reply("You must supply your username then pin!");
             return;
@@ -33,7 +48,7 @@ public class linkCommand extends Command {
                     }
 
                     String name = command[0];
-                    String uuid = userStorage.get().get(command[0]).get().getIdentifier();
+                    String uuid = userStorage.get().get(name).get().getIdentifier();
                     String pin = command[1];
                     boolean requestedLink = Main.config().getNode("linked-info", uuid).isVirtual();
                     boolean linked = !Main.config().getNode("linked-info", uuid, "linked").isVirtual();
@@ -53,7 +68,37 @@ public class linkCommand extends Command {
                     }
                     Main.config().getNode("linked-info", uuid, "linked").setValue(true);
                     try {Main.getInstance().save();} catch (IOException e) {e.printStackTrace();}
-                    event.getGuild().getController().addSingleRoleToMember(event.getMember(), event.getGuild().getRoleById("532776303280259089")).queue();
+
+                    String server = event.getJDA().getGuilds().get(0).getSelfMember().getNickname().toLowerCase();
+
+                    MessageChannel.TO_CONSOLE.send(Text.of(event.getJDA().getGuilds().toString()));
+
+                    switch (server) {
+                        case "pokedash": {
+                            event.getJDA().getGuilds().get(0).getController().addSingleRoleToMember(event.getJDA().getGuilds().get(0).getMemberById(authorID), event.getJDA().getGuilds().get(0).getRoleById("401183019932581888")).queue();
+                            break;
+                        }
+                        case "pokeclub": {
+                            event.getJDA().getGuilds().get(0).getController().addSingleRoleToMember(event.getJDA().getGuilds().get(0).getMemberById(authorID), event.getJDA().getGuilds().get(0).getRoleById("401183075918151682")).queue();
+                            break;
+                        }
+                        case "pokeverse": {
+                            event.getJDA().getGuilds().get(0).getController().addSingleRoleToMember(event.getJDA().getGuilds().get(0).getMemberById(authorID), event.getJDA().getGuilds().get(0).getRoleById("401183132327608333")).queue();
+                            break;
+                        }
+                        case "pokelegends": {
+                            event.getJDA().getGuilds().get(0).getController().addSingleRoleToMember(event.getJDA().getGuilds().get(0).getMemberById(authorID), event.getJDA().getGuilds().get(0).getRoleById("401183246106361856")).queue();
+                            break;
+                        }
+                        case "serverchat": {//Pokebrawl
+                            event.getJDA().getGuilds().get(0).getController().addSingleRoleToMember(event.getJDA().getGuilds().get(0).getMemberById(authorID), event.getJDA().getGuilds().get(0).getRoleById("532776303280259089")).queue();
+                            break;
+                        }
+                        default: {
+                            break;
+                        }
+                    }
+
                     event.reply("You are now able to talk in the server chat");
 
                 })
