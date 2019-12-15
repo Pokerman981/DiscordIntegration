@@ -71,7 +71,7 @@ public class linkCommand extends Command {
 
                     String server = event.getJDA().getGuilds().get(0).getSelfMember().getNickname().toLowerCase();
 
-                    MessageChannel.TO_CONSOLE.send(Text.of(event.getJDA().getGuilds().toString()));
+                    //MessageChannel.TO_CONSOLE.send(Text.of(event.getJDA().getGuilds().toString()));
 
                     switch (server) {
                         case "pokedash": {
@@ -90,8 +90,8 @@ public class linkCommand extends Command {
                             event.getJDA().getGuilds().get(0).getController().addSingleRoleToMember(event.getJDA().getGuilds().get(0).getMemberById(authorID), event.getJDA().getGuilds().get(0).getRoleById("401183246106361856")).queue();
                             break;
                         }
-                        case "serverchat": {//Pokebrawl
-                            event.getJDA().getGuilds().get(0).getController().addSingleRoleToMember(event.getJDA().getGuilds().get(0).getMemberById(authorID), event.getJDA().getGuilds().get(0).getRoleById("532776303280259089")).queue();
+                        case "pokebrawl": {//Pokebrawl
+                            event.getJDA().getGuilds().get(0).getController().addSingleRoleToMember(event.getJDA().getGuilds().get(0).getMemberById(authorID), event.getJDA().getGuilds().get(0).getRoleById("587021321536536576")).queue();
                             break;
                         }
                         default: {

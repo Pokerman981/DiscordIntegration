@@ -12,7 +12,8 @@ public class ExecuteServerCommand extends Command {
     public ExecuteServerCommand(){
         this.name = "command";
         this.guildOnly = true;
-        this.userPermissions = new Permission[]{Permission.ADMINISTRATOR};
+        this.requiredRole = "Admin";
+        this.botPermissions = new Permission[]{Permission.BAN_MEMBERS};
         this.hidden = true;
     }
 
