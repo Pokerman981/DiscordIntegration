@@ -5,6 +5,7 @@ import DiscordIntegration.API.Service;
 import DiscordIntegration.DiscordCommands.CheckPinCommand;
 import DiscordIntegration.DiscordCommands.EvalCommand;
 import DiscordIntegration.DiscordCommands.ExecuteServerCommand;
+import DiscordIntegration.DiscordCommands.OnlineStaffCommand;
 import DiscordIntegration.DiscordListeners.GlobalCommandListener;
 import DiscordIntegration.ServerCommands.GlobalCommand;
 import DiscordIntegration.ServerCommands.linkCommand;
@@ -61,7 +62,7 @@ public class Main {
 
         CommandClientBuilder ccb = new CommandClientBuilder()
                 .setPrefix("!")
-                .setAlternativePrefix("..")
+                .setAlternativePrefix(".")
                 .setEmojis("\u2705", "\uD83D\uDCA1", "\uD83D\uDEAB") //Unicode emojis
                 .setOwnerId(Ref.ownerid)
                 .setCoOwnerIds("126427288496504834")
@@ -69,7 +70,8 @@ public class Main {
                         new ExecuteServerCommand(),
                         new DiscordIntegration.DiscordCommands.linkCommand(),
                         new CheckPinCommand(),
-                        new EvalCommand()
+                        new EvalCommand(),
+                        new OnlineStaffCommand()
                 );
         EventWaiter waiter = new EventWaiter();
 
