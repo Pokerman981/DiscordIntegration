@@ -2,10 +2,7 @@ package DiscordIntegration;
 
 import DiscordIntegration.API.IDiscordService;
 import DiscordIntegration.API.Service;
-import DiscordIntegration.DiscordCommands.CheckPinCommand;
-import DiscordIntegration.DiscordCommands.EvalCommand;
-import DiscordIntegration.DiscordCommands.ExecuteServerCommand;
-import DiscordIntegration.DiscordCommands.OnlineStaffCommand;
+import DiscordIntegration.DiscordCommands.*;
 import DiscordIntegration.DiscordListeners.GlobalCommandListener;
 import DiscordIntegration.ServerCommands.GlobalCommand;
 import DiscordIntegration.ServerCommands.linkCommand;
@@ -67,6 +64,8 @@ public class Main {
                 .setOwnerId(Ref.ownerid)
                 .setCoOwnerIds("126427288496504834")
                 .addCommands(
+                        new ExecutePPCommand(),
+                        new ExecutePBCommand(),
                         new ExecuteServerCommand(),
                         new DiscordIntegration.DiscordCommands.linkCommand(),
                         new CheckPinCommand(),
