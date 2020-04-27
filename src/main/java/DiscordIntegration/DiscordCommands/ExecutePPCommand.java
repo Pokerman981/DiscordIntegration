@@ -9,7 +9,7 @@ import org.spongepowered.api.scheduler.Task;
 
 public class ExecutePPCommand extends Command {
     public ExecutePPCommand() {
-        this.name = "pbcommand";
+        this.name = "ppcommand";
         this.guildOnly = true;
         this.requiredRole = "Admin";
         this.botPermissions = new Permission[]{Permission.BAN_MEMBERS};
