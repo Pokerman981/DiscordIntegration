@@ -28,7 +28,7 @@ public class linkCommand implements CommandExecutor {
         Random random = new Random();
         String pin = String.format("%05d", random.nextInt(100000));
 
-        Utils.sendMessage(src, "&aTo finish linking your profile message the server chat bot and type and '!link (minecraft name) (pin)'");
+        Utils.sendMessage(src, "&aTo finish linking your profile message the server bot and type and '!link (minecraft name) (pin)'");
         Utils.sendMessage(src, "&aYour custom pin is " + pin + ". Write it down.");
 
         Main.config().getNode("linked-info", src.getIdentifier(), "pin").setValue(pin);
