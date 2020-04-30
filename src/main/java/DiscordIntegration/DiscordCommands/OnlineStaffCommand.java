@@ -56,8 +56,8 @@ public class OnlineStaffCommand extends Command {
 
         if (onlineNum == 0) {
             local.setColor(Color.red).getDescriptionBuilder().append("No Staff Are Online!");
-        } else {
-            StringBuilder stringBuilder = new StringBuilder(staffOnline.poll().getName());
+        }  else {
+            StringBuilder stringBuilder = new StringBuilder("`" + staffOnline.poll().getName() + "`");
             while (!staffOnline.isEmpty()) {
                 stringBuilder.append(", `" + staffOnline.poll().getName() + "`");
             }
