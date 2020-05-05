@@ -23,10 +23,10 @@ public class Utils {
         List<String> staff = new ArrayList<>();
 
         staff.add("Owner");
+        staff.add("SeniorAdmin");
         staff.add("Admin");
         staff.add("SeniorMod");
         staff.add("Mod");
-        staff.add("Moderator");
         staff.add("Helper");
         staff.add("ChatHelper");
 
