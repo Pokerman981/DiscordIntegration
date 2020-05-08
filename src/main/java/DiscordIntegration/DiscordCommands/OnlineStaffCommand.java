@@ -8,9 +8,6 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 import net.shmeeb.miscec.Main;
 import net.shmeeb.miscec.misc.TextUtils;
-import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.format.TextColors;
-import org.spongepowered.api.text.format.TextStyles;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -36,9 +33,14 @@ public class OnlineStaffCommand extends Command {
         int totalNum = onlinePlayers.size();
 
         String[] s = commandEvent.getArgs().split(" ");
+        String e = "";
 
-        if (!s[0].isEmpty()) {
-            if (s[0].equals(Sponge.getServer().getMotd().toPlain())) {
+        for(String server : Utils.getAliases().keySet())
+            if(Utils.getAliases().get(server).contains(s[0].toLowerCase()))
+                e = server;
+
+        if (!e.isEmpty()) {
+            if (e.equals(Sponge.getServer().getMotd().toPlain())) {
                 for (Player player : Sponge.getServer().getOnlinePlayers()) {
                     for (String sRank : Utils.getStaffRanks()) {
                         if (player.hasPermission("group." + sRank) && !staffOnline.contains(player)) {staffOnline.add(player);}
