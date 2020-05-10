@@ -4,10 +4,10 @@ import DiscordIntegration.Utils;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.core.EmbedBuilder;
-import org.spongepowered.api.Sponge;
-import org.spongepowered.api.entity.living.player.Player;
 import net.shmeeb.miscec.Main;
 import net.shmeeb.miscec.misc.TextUtils;
+import org.spongepowered.api.Sponge;
+import org.spongepowered.api.entity.living.player.Player;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -28,6 +28,8 @@ public class OnlineStaffCommand extends Command {
         Queue<Player> staffOnline = new LinkedList<>();
         String lasthostedTime = TextUtils.timeDiffFormat((System.currentTimeMillis() - Main.last_hosted_1) / 1000, false);
         String lasthostedUser = Main.last_hosted_by_1;
+        double tpsCount = Sponge.getServer().getTicksPerSecond();
+
 
         onlinePlayers.addAll(Sponge.getServer().getOnlinePlayers());
         int totalNum = onlinePlayers.size();
@@ -47,7 +49,7 @@ public class OnlineStaffCommand extends Command {
                     }
                 }
 
-                commandEvent.reply(staffOnline(staffOnline, totalNum, lasthostedTime, lasthostedUser).build());
+                commandEvent.reply(staffOnline(staffOnline, tpsCount, totalNum, lasthostedTime, lasthostedUser).build());
             }
         } else {
             for (Player player : Sponge.getServer().getOnlinePlayers()) {
@@ -56,14 +58,14 @@ public class OnlineStaffCommand extends Command {
                 }
             }
 
-            commandEvent.reply(staffOnline(staffOnline, totalNum, lasthostedTime, lasthostedUser).build());
+            commandEvent.reply(staffOnline(staffOnline, tpsCount, totalNum, lasthostedTime, lasthostedUser).build());
 
         }
 
 
     }
 
-    public static EmbedBuilder staffOnline(Queue<Player> staffOnline, int totalNum, String lasthostedTime, String lasthostedUser) {
+    public static EmbedBuilder staffOnline(Queue<Player> staffOnline, double tpsCount, int totalNum, String lasthostedTime, String lasthostedUser) {
         EmbedBuilder local = new EmbedBuilder();
         local.setColor(Color.green);
         int onlineNum = staffOnline.size();
@@ -78,10 +80,11 @@ public class OnlineStaffCommand extends Command {
 
             local.getDescriptionBuilder().append("Staff Online: " + onlineNum + "\t\n\t\t" + stringBuilder.toString() + "\n");
         }
+        local.getDescriptionBuilder().append(String.format("\nTPS: %.2f\n",tpsCount));
         if (totalNum == 0) {
-            local.getDescriptionBuilder().append("\n" + "No Players Are Online!" + "\n");
+            local.getDescriptionBuilder().append("No Players Are Online!" + "\n");
         }   else {
-            local.getDescriptionBuilder().append("\n" + "Players Online: " + totalNum + "\n");
+            local.getDescriptionBuilder().append("Players Online: " + totalNum + "\n");
         }
             local.getDescriptionBuilder().append("Lasthosted " + lasthostedTime + " ago by " + lasthostedUser);
         return local;
