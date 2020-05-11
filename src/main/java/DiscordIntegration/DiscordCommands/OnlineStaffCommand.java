@@ -29,7 +29,7 @@ public class OnlineStaffCommand extends Command {
         String lasthostedTime = TextUtils.timeDiffFormat((System.currentTimeMillis() - Main.last_hosted_1) / 1000, false);
         String lasthostedUser = Main.last_hosted_by_1;
         double tpsCount = Sponge.getServer().getTicksPerSecond();
-
+        String tps = String.format("%.2f",tpsCount);
 
         onlinePlayers.addAll(Sponge.getServer().getOnlinePlayers());
         int totalNum = onlinePlayers.size();
@@ -49,7 +49,7 @@ public class OnlineStaffCommand extends Command {
                     }
                 }
 
-                commandEvent.reply(staffOnline(staffOnline, tpsCount, totalNum, lasthostedTime, lasthostedUser).build());
+                commandEvent.reply(staffOnline(staffOnline, tps, totalNum, lasthostedTime, lasthostedUser).build());
             }
         } else {
             for (Player player : Sponge.getServer().getOnlinePlayers()) {
@@ -58,14 +58,14 @@ public class OnlineStaffCommand extends Command {
                 }
             }
 
-            commandEvent.reply(staffOnline(staffOnline, tpsCount, totalNum, lasthostedTime, lasthostedUser).build());
+            commandEvent.reply(staffOnline(staffOnline, tps, totalNum, lasthostedTime, lasthostedUser).build());
 
         }
 
 
     }
 
-    public static EmbedBuilder staffOnline(Queue<Player> staffOnline, double tpsCount, int totalNum, String lasthostedTime, String lasthostedUser) {
+    public static EmbedBuilder staffOnline(Queue<Player> staffOnline, String tps, int totalNum, String lasthostedTime, String lasthostedUser) {
         EmbedBuilder local = new EmbedBuilder();
         local.setColor(Color.green);
         int onlineNum = staffOnline.size();
@@ -80,7 +80,7 @@ public class OnlineStaffCommand extends Command {
 
             local.getDescriptionBuilder().append("Staff Online: " + onlineNum + "\t\n\t\t" + stringBuilder.toString() + "\n");
         }
-        local.getDescriptionBuilder().append(String.format("\nTPS: %.2f\n",tpsCount));
+        local.getDescriptionBuilder().append(String.format("\nTPS: "+ tps +"\n"));
         if (totalNum == 0) {
             local.getDescriptionBuilder().append("No Players Are Online!" + "\n");
         }   else {
