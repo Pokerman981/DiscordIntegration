@@ -10,7 +10,6 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -37,7 +36,6 @@ public class OnlineStaffCommand extends Command {
         String suppliedServer = s[0];
 
         if (suppliedServer.isEmpty()) {
-            // commandEvent.replyError("You must supply a server!");
             return;
         }
 
@@ -46,11 +44,9 @@ public class OnlineStaffCommand extends Command {
         }
 
 
-        for (Player player : onlinePlayers) {
-                for (String sRank : Utils.getStaffRanks()) {
-                    if (player.hasPermission("group." + sRank) && !staffOnline.contains(player)) {staffOnline.add(player);}
-                }
-            }
+        for (Player player : onlinePlayers)
+                for (String sRank : Utils.getStaffRanks())
+                    if (player.hasPermission("group." + sRank) && !staffOnline.contains(player)) staffOnline.add(player);
 
       commandEvent.reply(staffOnline(staffOnline, tps, totalNum, lasthostedTime, lasthostedUser).build());
     }
