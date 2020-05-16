@@ -24,45 +24,36 @@ public class OnlineStaffCommand extends Command {
 
     @Override
     protected void execute(CommandEvent commandEvent) {
-        List<Player> onlinePlayers = new ArrayList<>();
+        List<Player> onlinePlayers = (List<Player>) Sponge.getServer().getOnlinePlayers();
         Queue<Player> staffOnline = new LinkedList<>();
         String lasthostedTime = TextUtils.timeDiffFormat((System.currentTimeMillis() - Main.last_hosted_1) / 1000, false);
         String lasthostedUser = Main.last_hosted_by_1;
         double tpsCount = Sponge.getServer().getTicksPerSecond();
-        String tps = String.format("%.2f",tpsCount);
-
-        onlinePlayers.addAll(Sponge.getServer().getOnlinePlayers());
+        String tps = String.format("%.2f", tpsCount);
         int totalNum = onlinePlayers.size();
+        String server = Main.serverName; //MiscEC Main
 
         String[] s = commandEvent.getArgs().split(" ");
-        String e = "";
+        String suppliedServer = s[0];
 
-        for(String server : Utils.getAliases().keySet())
-            if(Utils.getAliases().get(server).contains(s[0].toLowerCase()))
-                e = server;
+        if (suppliedServer.isEmpty()) {
+            // commandEvent.replyError("You must supply a server!");
+            return;
+        }
 
-        if (!s[0].isEmpty()) {
-            if (e.equals(Sponge.getServer().getMotd().toPlain())) {
-                for (Player player : Sponge.getServer().getOnlinePlayers()) {
-                    for (String sRank : Utils.getStaffRanks()) {
-                        if (player.hasPermission("group." + sRank) && !staffOnline.contains(player)) {staffOnline.add(player);}
-                    }
-                }
+        if (!Utils.getAliases().get(server).contains(suppliedServer.toLowerCase())) {
+            System.out.println(suppliedServer + " not recognized");
+            return;
+        }
 
-                commandEvent.reply(staffOnline(staffOnline, tps, totalNum, lasthostedTime, lasthostedUser).build());
-            }
-        } else {
-            for (Player player : Sponge.getServer().getOnlinePlayers()) {
+
+        for (Player player : onlinePlayers) {
                 for (String sRank : Utils.getStaffRanks()) {
                     if (player.hasPermission("group." + sRank) && !staffOnline.contains(player)) {staffOnline.add(player);}
                 }
             }
 
-            commandEvent.reply(staffOnline(staffOnline, tps, totalNum, lasthostedTime, lasthostedUser).build());
-
-        }
-
-
+      commandEvent.reply(staffOnline(staffOnline, tps, totalNum, lasthostedTime, lasthostedUser).build());
     }
 
     public static EmbedBuilder staffOnline(Queue<Player> staffOnline, String tps, int totalNum, String lasthostedTime, String lasthostedUser) {

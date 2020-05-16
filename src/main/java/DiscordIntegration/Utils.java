@@ -35,25 +35,37 @@ public class Utils {
     }
 
     public static HashMap<String,ArrayList<String>> getAliases() {
-        HashMap<String,ArrayList<String>> serverAliases = new HashMap<String,ArrayList<String>>();
-        serverAliases.put("pokebrawl", new ArrayList<String>());
-        serverAliases.put("pokelegends", new ArrayList<String>());
-        serverAliases.put("pokeverse", new ArrayList<String>());
-        serverAliases.put("pokeclub", new ArrayList<String>());
-        serverAliases.put("pokedash", new ArrayList<String>());
-//        serverAliases.put("pokezone", new ArrayList<String>());
-        serverAliases.get("pokebrawl").add("pb");
-        serverAliases.get("pokebrawl").add("pokebrawl");
-        serverAliases.get("pokelegends").add("pl");
-        serverAliases.get("pokelegends").add("pokelegends");
-        serverAliases.get("pokeverse").add("pv");
-        serverAliases.get("pokeverse").add("pokeverse");
-        serverAliases.get("pokeclub").add("pc");
-        serverAliases.get("pokeclub").add("pokeclub");
-        serverAliases.get("pokedash").add("pd");
-        serverAliases.get("pokedash").add("pokedash");
-//        serverAliases.get("pokezone").add("pz");
-//        serverAliases.get("pokezone").add("pokezone");
+        HashMap<String,ArrayList<String>> serverAliases = new HashMap<>();
+        serverAliases.put("brawl", new ArrayList<>());
+        serverAliases.get("brawl").add("pb");
+        serverAliases.get("brawl").add("pokebrawl");
+        serverAliases.get("brawl").add("brawl");
+
+        serverAliases.put("legends", new ArrayList<>());
+        serverAliases.get("legends").add("pl");
+        serverAliases.get("legends").add("pokelegends");
+        serverAliases.get("legends").add("legends");
+
+        serverAliases.put("verse", new ArrayList<>());
+        serverAliases.get("verse").add("pv");
+        serverAliases.get("verse").add("pokeverse");
+        serverAliases.get("verse").add("verse");
+
+        serverAliases.put("club", new ArrayList<>());
+        serverAliases.get("club").add("pc");
+        serverAliases.get("club").add("pokeclub");
+        serverAliases.get("club").add("club");
+
+        serverAliases.put("dash", new ArrayList<>());
+        serverAliases.get("dash").add("pd");
+        serverAliases.get("dash").add("pokedash");
+        serverAliases.get("dash").add("dash");
+
+        serverAliases.put("zone", new ArrayList<>());
+        serverAliases.get("zone").add("pz");
+        serverAliases.get("zone").add("pokezone");
+        serverAliases.get("zone").add("zone");
+
 
         return serverAliases;
     }
