@@ -41,7 +41,7 @@ public class OnlineStaffCommand extends Command {
             if(Utils.getAliases().get(server).contains(s[0].toLowerCase()))
                 e = server;
 
-        if (!e.isEmpty()) {
+        if (!s[0].isEmpty()) {
             if (e.equals(Sponge.getServer().getMotd().toPlain())) {
                 for (Player player : Sponge.getServer().getOnlinePlayers()) {
                     for (String sRank : Utils.getStaffRanks()) {

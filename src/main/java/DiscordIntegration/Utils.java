@@ -41,6 +41,7 @@ public class Utils {
         serverAliases.put("pokeverse", new ArrayList<String>());
         serverAliases.put("pokeclub", new ArrayList<String>());
         serverAliases.put("pokedash", new ArrayList<String>());
+//        serverAliases.put("pokezone", new ArrayList<String>());
         serverAliases.get("pokebrawl").add("pb");
         serverAliases.get("pokebrawl").add("pokebrawl");
         serverAliases.get("pokelegends").add("pl");
@@ -51,6 +52,8 @@ public class Utils {
         serverAliases.get("pokeclub").add("pokeclub");
         serverAliases.get("pokedash").add("pd");
         serverAliases.get("pokedash").add("pokedash");
+//        serverAliases.get("pokezone").add("pz");
+//        serverAliases.get("pokezone").add("pokezone");
 
         return serverAliases;
     }
