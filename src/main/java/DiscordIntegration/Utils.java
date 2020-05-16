@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Utils {
+    // TODO Possibly use the methods already in MiscEC
 
     public static String color(String string) {
         return org.spongepowered.api.text.serializer.TextSerializers.FORMATTING_CODE

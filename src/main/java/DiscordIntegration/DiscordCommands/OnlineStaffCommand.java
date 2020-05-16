@@ -23,6 +23,13 @@ public class OnlineStaffCommand extends Command {
 
     @Override
     protected void execute(CommandEvent commandEvent) {
+        String[] s = commandEvent.getArgs().split(" ");
+        String suppliedServer = s[0];
+
+        if (suppliedServer.isEmpty()) {
+            return;
+        }
+
         List<Player> onlinePlayers = (List<Player>) Sponge.getServer().getOnlinePlayers();
         Queue<Player> staffOnline = new LinkedList<>();
         String lasthostedTime = TextUtils.timeDiffFormat((System.currentTimeMillis() - Main.last_hosted_1) / 1000, false);
@@ -32,12 +39,6 @@ public class OnlineStaffCommand extends Command {
         int totalNum = onlinePlayers.size();
         String server = Main.serverName; //MiscEC Main
 
-        String[] s = commandEvent.getArgs().split(" ");
-        String suppliedServer = s[0];
-
-        if (suppliedServer.isEmpty()) {
-            return;
-        }
 
         if (!Utils.getAliases().get(server).contains(suppliedServer.toLowerCase())) {
             return;
