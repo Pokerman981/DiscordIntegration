@@ -42,7 +42,6 @@ public class OnlineStaffCommand extends Command {
         }
 
         if (!Utils.getAliases().get(server).contains(suppliedServer.toLowerCase())) {
-            System.out.println(suppliedServer + " not recognized");
             return;
         }
 
