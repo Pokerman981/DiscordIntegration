@@ -62,11 +62,33 @@ public class Utils {
         serverAliases.get("dash").add("pokedash");
         serverAliases.get("dash").add("dash");
 
-        serverAliases.put("zone", new ArrayList<>());
-        serverAliases.get("zone").add("pz");
-        serverAliases.get("zone").add("pokezone");
-        serverAliases.get("zone").add("zone");
+        serverAliases.put("pokezone", new ArrayList<>());
+        serverAliases.get("pokezone").add("pz1");
+        serverAliases.get("pokezone").add("pokezone1");
+        serverAliases.get("pokezone").add("zone1");
+        serverAliases.get("pokezone").add("pzb");
+        serverAliases.get("pokezone").add("pokezoneb");
+        serverAliases.get("pokezone").add("zoneb");
+        serverAliases.get("pokezone").add("pzblue");
+        serverAliases.get("pokezone").add("pokezoneblue");
+        serverAliases.get("pokezone").add("zoneblue");
+        serverAliases.get("pokezone").add("zone");
+        serverAliases.get("pokezone").add("pz");
+        serverAliases.get("pokezone").add("pokezone");
 
+        serverAliases.put("redzone", new ArrayList<>());
+        serverAliases.get("redzone").add("pz2");
+        serverAliases.get("redzone").add("pokezone2");
+        serverAliases.get("redzone").add("zone2");
+        serverAliases.get("redzone").add("pzr");
+        serverAliases.get("redzone").add("pokezoner");
+        serverAliases.get("redzone").add("zoner");
+        serverAliases.get("redzone").add("pzred");
+        serverAliases.get("redzone").add("pokezonered");
+        serverAliases.get("redzone").add("zonered");
+        serverAliases.get("redzone").add("zone");
+        serverAliases.get("redzone").add("pz");
+        serverAliases.get("redzone").add("pokezone");
 
         return serverAliases;
     }
