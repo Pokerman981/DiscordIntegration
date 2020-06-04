@@ -63,6 +63,7 @@ public class Main {
                 .setEmojis("\u2705", "\uD83D\uDCA1", "\uD83D\uDEAB") //Unicode emojis
                 .setOwnerId(Ref.ownerid)
                 .setCoOwnerIds("126427288496504834")
+                .useHelpBuilder(false)
                 .addCommands(
                         new ExecutePPCommand(),
                         new ExecutePBCommand(),

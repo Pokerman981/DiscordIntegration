@@ -18,6 +18,9 @@ public class EvalCommand extends Command {
 
     @Override
     protected void execute(CommandEvent event) {
+
+
+
         ScriptEngine se = new ScriptEngineManager().getEngineByName("Nashorn");
         se.put("event", event);
         se.put("jda", event.getJDA());
