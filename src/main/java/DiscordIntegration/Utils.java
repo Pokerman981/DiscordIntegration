@@ -90,6 +90,9 @@ public class Utils {
         serverAliases.get("zone2").add("pz");
         serverAliases.get("zone2").add("pokezone");
 
+        serverAliases.put("test", new ArrayList<>());
+        serverAliases.get("test").add("test");
+
         return serverAliases;
     }
 }
