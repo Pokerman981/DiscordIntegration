@@ -28,6 +28,8 @@ import org.spongepowered.api.text.Text;
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 @Plugin(id = "discordintegration", name = "DiscordIntegration", version = "1.0")
@@ -35,6 +37,20 @@ public class Main {
 
     private static String token;
     public static JDA jda;
+
+    public static Map<String, String> serverRankIDS = new HashMap<String, String>() {
+        {
+            put("pokedash", "467459853116375040");
+            put("pokeverse", "467459888516431903");
+            put("pokelegends", "467459940093657108");
+            put("pokeclub", "467459975812218922");
+            put("pokebrawl", "586792372969668613");
+            put("pokezone blue", "711157151246057482");
+            put("pokezone red", "716753331862765608");
+            put("discord manager", "577774538532847631");
+        }
+    };
+
 
     @Listener
     public void onInit(GameInitializationEvent event) {

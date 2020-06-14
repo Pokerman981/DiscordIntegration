@@ -35,16 +35,8 @@ public class linkCommand implements CommandExecutor {
         Main.config().getNode("linked-info", src.getIdentifier(), "name").setValue(src.getName());
 
         try {Main.getInstance().save();} catch (IOException e) {e.printStackTrace();}
-        String server = Main.jda.getGuilds().get(0).getSelfMember().getNickname().toLowerCase();
-        switch (server) {
-            case "serverchat": {
-                Main.jda.getGuildById("291940579875618816").getTextChannelById("532785983960121354").sendMessage("Name: %player%\nPin: %pin%".replaceAll("%player%", src.getName()).replaceAll("%pin%", pin)).queue();
-            }
-            default: {
-                Main.jda.getGuildById("258797004757532672").getTextChannelById("322915404043517952").sendMessage("Name: %player%\nPin: %pin%".replaceAll("%player%", src.getName()).replaceAll("%pin%", pin)).queue();
+        Main.jda.getGuildById("258797004757532672").getTextChannelById("322915404043517952").sendMessage("Name: %player%\nPin: %pin%".replaceAll("%player%", src.getName()).replaceAll("%pin%", pin)).queue();
 
-            }
-        }
 
 
         return CommandResult.success();

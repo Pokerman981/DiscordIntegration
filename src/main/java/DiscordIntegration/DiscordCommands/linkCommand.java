@@ -3,12 +3,11 @@ package DiscordIntegration.DiscordCommands;
 import DiscordIntegration.Main;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.entities.Guild;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.service.user.UserStorageService;
-import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.channel.MessageChannel;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -22,17 +21,11 @@ public class linkCommand extends Command {
 
     @Override
     protected void execute(CommandEvent event) {
+        if (!event.isFromType(ChannelType.PRIVATE)) return;
+
         String[] command = event.getArgs().split(" ");
         String authorID = event.getAuthor().getId();
 
-        try {
-            String id = event.getGuild().getId();
-            if (!id.isEmpty()) {
-                return;
-            }
-        } catch (NullPointerException e) {
-            //Nothing
-        }
 
         if (command.length != 2) {
             event.reply("You must supply your username then pin!");
@@ -54,11 +47,11 @@ public class linkCommand extends Command {
                     boolean linked = !Main.config().getNode("linked-info", uuid, "linked").isVirtual();
 
                     if (requestedLink) {
-                        event.reply("You must do /link in-game first!");
+                        event.replyError("You must do /link in-game first!");
                         return;
                     }
                     if (linked) {
-                        event.reply("You've already linked your account!");
+                        event.replyError("You've already linked your account!");
                         return;
                     }
 
@@ -66,40 +59,16 @@ public class linkCommand extends Command {
                         event.reply("Your pin does not match the pin on our files!");
                         return;
                     }
+                    Guild guild = event.getJDA().getGuildById("258797004757532672");
+
                     Main.config().getNode("linked-info", uuid, "linked").setValue(true);
                     try {Main.getInstance().save();} catch (IOException e) {e.printStackTrace();}
 
-                    String server = event.getJDA().getGuilds().get(0).getSelfMember().getNickname().toLowerCase();
+                    String server = guild.getSelfMember().getNickname() == null ? guild.getSelfMember().getEffectiveName().toLowerCase() : guild.getSelfMember().getNickname().toLowerCase();
 
-                    //MessageChannel.TO_CONSOLE.send(Text.of(event.getJDA().getGuilds().toString()));
+                    guild.getController().addSingleRoleToMember(guild.getMemberById(authorID), guild.getRoleById(Main.serverRankIDS.get(server))).queue();
 
-                    switch (server) {
-                        case "pokedash": {
-                            event.getJDA().getGuilds().get(0).getController().addSingleRoleToMember(event.getJDA().getGuilds().get(0).getMemberById(authorID), event.getJDA().getGuilds().get(0).getRoleById("401183019932581888")).queue();
-                            break;
-                        }
-                        case "pokeclub": {
-                            event.getJDA().getGuilds().get(0).getController().addSingleRoleToMember(event.getJDA().getGuilds().get(0).getMemberById(authorID), event.getJDA().getGuilds().get(0).getRoleById("401183075918151682")).queue();
-                            break;
-                        }
-                        case "pokeverse": {
-                            event.getJDA().getGuilds().get(0).getController().addSingleRoleToMember(event.getJDA().getGuilds().get(0).getMemberById(authorID), event.getJDA().getGuilds().get(0).getRoleById("401183132327608333")).queue();
-                            break;
-                        }
-                        case "pokelegends": {
-                            event.getJDA().getGuilds().get(0).getController().addSingleRoleToMember(event.getJDA().getGuilds().get(0).getMemberById(authorID), event.getJDA().getGuilds().get(0).getRoleById("401183246106361856")).queue();
-                            break;
-                        }
-                        case "pokebrawl": {//Pokebrawl
-                            event.getJDA().getGuilds().get(0).getController().addSingleRoleToMember(event.getJDA().getGuilds().get(0).getMemberById(authorID), event.getJDA().getGuilds().get(0).getRoleById("587021321536536576")).queue();
-                            break;
-                        }
-                        default: {
-                            break;
-                        }
-                    }
-
-                    event.reply("You are now able to talk in the server chat");
+                    event.replySuccess("You are now able to talk in the server chat");
 
                 })
                 .submit(Main.getInstance());
