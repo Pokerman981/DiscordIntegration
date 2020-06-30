@@ -51,6 +51,18 @@ public class Main {
         }
     };
 
+    public static Map<String, String> donorRankIDS = new HashMap<String, String>() {
+    {
+        put("PDDonator", "401183019932581888");
+        put("PVDonator", "401183132327608333");
+        put("PLDonator", "401183246106361856");
+        put("PCDonator", "401183075918151682");
+        put("PBDonator", "587021321536536576");
+        put("PZBlueDonator", "711157141305557004");
+        put("PZRedDonator", "716753637812207726");
+    }
+};
+
 
     @Listener
     public void onInit(GameInitializationEvent event) {

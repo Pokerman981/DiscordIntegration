@@ -66,7 +66,7 @@ public class linkCommand extends Command {
 
                     String server = guild.getSelfMember().getNickname() == null ? guild.getSelfMember().getEffectiveName().toLowerCase() : guild.getSelfMember().getNickname().toLowerCase();
 
-                    guild.getController().addSingleRoleToMember(guild.getMemberById(authorID), guild.getRoleById(Main.serverRankIDS.get(server))).queue();
+                    guild.getController().addSingleRoleToMember(guild.getMemberById(authorID), guild.getRoleById(Main.donorRankIDS.get(server))).queue();
 
                     event.replySuccess("You are now able to talk in the server chat");
 
