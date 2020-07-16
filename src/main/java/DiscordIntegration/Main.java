@@ -39,27 +39,15 @@ public class Main {
     public static JDA jda;
 
     public static Map<String, String> serverRankIDS = new HashMap<String, String>() {
-        {
-            put("pokedash", "467459853116375040");
-            put("pokeverse", "467459888516431903");
-            put("pokelegends", "467459940093657108");
-            put("pokeclub", "467459975812218922");
-            put("pokebrawl", "586792372969668613");
-            put("pokezone blue", "711157151246057482");
-            put("pokezone red", "716753331862765608");
-            put("discord manager", "577774538532847631");
-        }
-    };
-
-    public static Map<String, String> donorRankIDS = new HashMap<String, String>() {
     {
-        put("PDDonator", "401183019932581888");
-        put("PVDonator", "401183132327608333");
-        put("PLDonator", "401183246106361856");
-        put("PCDonator", "401183075918151682");
-        put("PBDonator", "587021321536536576");
-        put("PZBlueDonator", "711157141305557004");
-        put("PZRedDonator", "716753637812207726");
+        put("pokedash", "401183019932581888");
+        put("pokeverse", "401183132327608333");
+        put("pokelegends", "401183246106361856");
+        put("pokeclub", "401183075918151682");
+        put("pokebrawl", "587021321536536576");
+        put("pokezone blue", "711157141305557004");
+        put("pokezone red", "716753637812207726");
+        put("discord manager", "577774538532847631");
     }
 };
 
