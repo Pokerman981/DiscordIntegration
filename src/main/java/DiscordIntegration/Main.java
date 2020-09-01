@@ -45,8 +45,8 @@ public class Main {
         put("pokelegends", "401183246106361856");
         put("pokeclub", "401183075918151682");
         put("pokebrawl", "587021321536536576");
-        put("pokezone blue", "711157141305557004");
-        put("pokezone red", "716753637812207726");
+        put("pokezone blue", "749359623382892676");
+        put("pokezone red", "749359731612582030");
         put("discord manager", "577774538532847631");
     }
 };
@@ -121,7 +121,7 @@ public class Main {
                 .build();
 
         Sponge.getCommandManager().register(this, globalBan, Lists.newArrayList("gcmd"));
-        Sponge.getCommandManager().register(this, link, Lists.newArrayList("link"));
+//        Sponge.getCommandManager().register(this, link, Lists.newArrayList("link"));
     }
 
 

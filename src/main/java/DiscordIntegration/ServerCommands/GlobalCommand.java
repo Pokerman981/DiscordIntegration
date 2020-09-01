@@ -14,7 +14,7 @@ public class GlobalCommand implements CommandExecutor {
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
         String cmd = args.getOne(Text.of("command")).get().toString();
         JDA jda = Main.jda;
-        jda.getGuildsByName("Pixelmon+", true).get(0).getTextChannelsByName("staff-logs", true).get(0).sendMessage("!gcmd " + cmd).submit();
+        jda.getGuildsByName("Pixelmon+", true).get(0).getTextChannelsByName("debug-logs", true).get(0).sendMessage("!gcmd " + cmd).submit();
 
         return CommandResult.success();
     }
