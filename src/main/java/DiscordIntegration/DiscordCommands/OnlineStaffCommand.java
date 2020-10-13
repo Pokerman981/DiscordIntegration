@@ -4,6 +4,7 @@ import DiscordIntegration.Utils;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.Permission;
 import net.shmeeb.miscec.Main;
 import net.shmeeb.miscec.misc.TextUtils;
 import org.spongepowered.api.Sponge;
@@ -18,7 +19,7 @@ public class OnlineStaffCommand extends Command {
 
     public OnlineStaffCommand() {
         this.name = "sstatus";
-        this.requiredRole = "staff";
+        this.userPermissions = new Permission[] {Permission.VOICE_MUTE_OTHERS, Permission.VOICE_DEAF_OTHERS};
     }
 
     @Override
