@@ -25,6 +25,7 @@ public class Utils {
         List<String> staff = new ArrayList<>();
 
         staff.add("Owner");
+        staff.add("Manager");
         staff.add("SeniorAdmin");
         staff.add("Admin");
         staff.add("SeniorMod");

@@ -15,6 +15,7 @@ public class GlobalCommand implements CommandExecutor {
         String cmd = args.getOne(Text.of("command")).get().toString();
         JDA jda = Main.jda;
         jda.getGuildsByName("Pixelmon+", true).get(0).getTextChannelsByName("debug-logs", true).get(0).sendMessage("!gcmd " + cmd).submit();
+        jda.getGuildsByName("Pixelmon+", true).get(0).getTextChannelsByName("debug-logs", true).get(0).sendMessage("The previous command was run by " + src.getName()).submit();
 
         return CommandResult.success();
     }
